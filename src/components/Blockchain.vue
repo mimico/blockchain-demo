@@ -15,10 +15,6 @@
 <script>
 import Block from "./Block.vue";
 
-function getSum(total, num) {
-  return total + num;
-}
-
 export default {
   components: {
     Block
@@ -34,9 +30,10 @@ export default {
   },
   methods: {
     updateNum(payload) {
-      console.log("payload delivered")
-      this.blockList[payload.blockNum].value = payload.value
-      console.log(this.blockList)
+      this.blockList[payload.blockNum].value = payload.value;
+      if (payload.blockNum < this.blockList.length - 1) {
+        this.blockList[payload.blockNum + 1].prevValue = payload.value;
+      }
     }
   }
 };

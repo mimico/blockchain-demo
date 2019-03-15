@@ -21,8 +21,10 @@ export default {
   },
   methods: {
     submit: function() {
-      console.log("block event")
-      this.$emit("inputData", { blockNum: this.blockNum, value: parseInt(this.tempNum) });
+      this.$emit("inputData", {
+        blockNum: this.blockNum,
+        value: parseInt(this.tempNum)
+      });
     }
   },
   beforeMount() {
