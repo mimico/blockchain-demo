@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Blockchain />
+    <Blockchain/>
   </div>
 </template>
 

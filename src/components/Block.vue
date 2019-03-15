@@ -1,9 +1,8 @@
 <template>
   <div class="block">
-    <label>DATA: </label>
-    <input type="text" placeholder="Enter a number" v-model="tempNum" @keyup.enter="submit">
+    <label>DATA:</label>
+    <input type="text" v-model="tempNum" @keyup.enter="submit">
     <p>Previous Value: {{ prevValue }}</p>
-    <p>Value: {{ value }}</p>
   </div>
 </template>
 
@@ -11,23 +10,26 @@
 export default {
   name: "Block",
   props: {
+    blockNum: Number,
     value: Number,
     prevValue: Number
   },
   data() {
     return {
       tempNum: ""
+    };
+  },
+  methods: {
+    submit: function() {
+      console.log("block event")
+      this.$emit("inputData", { blockNum: this.blockNum, value: parseInt(this.tempNum) });
     }
   },
-  methods:{
-    submit: function () {
-      this.$emit("inputData", this.tempNum)
-      this.tempNum = ""
-    }
+  beforeMount() {
+    this.tempNum = this.value;
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

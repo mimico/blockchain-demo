@@ -1,10 +1,14 @@
 <template>
   <div class="blockchain">
-    <div id="blocks" v-for="block in blockList" :key="block">
-      <Block @inputData="updateNum" v-bind:prevValue="block.prevValue" v-bind:value="block.value" />
+    <div id="blocks" v-for="(block, index) in blockList" :key="block.timestamp">
+      <Block
+        @inputData="updateNum"
+        :prevValue="block.prevValue"
+        :value="block.value"
+        :blockNum="index"
+      />
     </div>
     <p>List is: {{ blockList }}</p>
-    <p>Sum is: {{ listSum }}</p>
   </div>
 </template>
 
@@ -21,19 +25,18 @@ export default {
   },
   data: function() {
     return {
-      blockList: [{value: 0, prevValue: 0 }]
+      blockList: [
+        { value: 0, prevValue: 0 },
+        { value: 3, prevValue: 0 },
+        { value: 8, prevValue: 3 }
+      ]
     };
   },
   methods: {
-    updateNum(variable) {
-     // this.blockList.push({parseInt(variable), );
-      this.blockList.push({value: parseInt(variable), prevValue: this.blockList[this.blockList.length-1].value});
-      console.log(this.blockList);
-    }
-  },
-  computed: {
-    listSum: function() {
-      return this.blockList.reduce(getSum);
+    updateNum(payload) {
+      console.log("payload delivered")
+      this.blockList[payload.blockNum].value = payload.value
+      console.log(this.blockList)
     }
   }
 };
