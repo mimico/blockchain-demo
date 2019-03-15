@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-  <!--  <img alt="Vue logo" src="./assets/logo.png"> -->
-    <Add msg="Adding is fun"/>
+    <Block msg="Blockchain is fun"/>
   </div>
 </template>
 
 <script>
-import Add from './components/Add.vue'
+import Block from "./components/Block.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    Add
+    Block
   }
-}
+};
 </script>
 
 <style>

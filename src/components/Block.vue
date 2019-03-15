@@ -1,5 +1,5 @@
 <template>
-  <div class="add">
+  <div class="block">
     <h1>{{ msg }}</h1>
     <input v-model="num1" placeholder="first number">
     <input v-model="num2" placeholder="second number">
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Add',
+  name: 'Block',
   props: {
     msg: String
   },
