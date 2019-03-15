@@ -1,12 +1,19 @@
 <template>
   <div class="block">
-    <input placeholder="Enter a number" v-model="tempNum" @keyup.enter="submit">
+    <label>DATA: </label>
+    <input type="text" placeholder="Enter a number" v-model="tempNum" @keyup.enter="submit">
+    <p>Previous Value: {{ prevValue }}</p>
+    <p>Value: {{ value }}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: "Block",
+  props: {
+    value: Number,
+    prevValue: Number
+  },
   data() {
     return {
       tempNum: ""
