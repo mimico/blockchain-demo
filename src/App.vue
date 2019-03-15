@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <Blockchain />
+    <Blockchain/>
   </div>
 </template>
 
 <script>
 import Blockchain from "./components/Blockchain.vue";
+import AddBlock from "./components/AddBlock.vue";
 
 export default {
   name: "app",
   components: {
-    Blockchain
+    Blockchain,
+    AddBlock
   }
 };
 </script>

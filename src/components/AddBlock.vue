@@ -1,15 +1,13 @@
 <template>
-  <div class="block">
+  <div>
     <label>DATA:</label>
     <input type="text" placeholder="Enter a number" v-model="tempNum">
-    <p>Previous Value: {{ prevValue }}</p>
-    <p>Value: {{ value }}</p>
+    <button v-on:click="addBlock">+ Add New Block</button>
   </div>
 </template>
-
 <script>
 export default {
-  name: "Block",
+  name: "AddBlock",
   props: {
     value: Number,
     prevValue: Number
@@ -20,14 +18,16 @@ export default {
     };
   },
   methods: {
-    submit: function() {
+    addBlock: function(event) {
+      // `this` inside methods point to the Vue instance
+      //alert('Hello ' + this.tempNum + '!')
+      // `event` is the native DOM event
+      //alert(event.target.tagName)
       this.$emit("inputData", this.tempNum);
       this.tempNum = "";
     }
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 </style>
