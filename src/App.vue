@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <Block msg="Blockchain is fun"/>
+    <Blockchain />
   </div>
 </template>
 
 <script>
-import Block from "./components/Block.vue";
+import Blockchain from "./components/Blockchain.vue";
 
 export default {
   name: "app",
   components: {
-    Block
+    Blockchain
   }
 };
 </script>
