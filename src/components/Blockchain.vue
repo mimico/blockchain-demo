@@ -1,6 +1,7 @@
 <template>
   <div class="blockchain">
-    <div id="blocks" v-for="(block, index) in blockList" :key="block.timestamp">
+    <ResetBlockchain @reset="reset"/>
+    <div id="blocks" v-for="(block, index) in blockList" :key="index">
       <Block
         @inputData="updateNum"
         :prevValue="block.prevValue"
@@ -16,17 +17,17 @@
 <script>
 import Block from "./Block.vue";
 import AddBlock from "./AddBlock.vue";
+import ResetBlockchain from "./ResetBlockchain.vue";
 
 export default {
   components: {
     Block,
-    AddBlock
+    AddBlock,
+    ResetBlockchain
   },
   data: function() {
     return {
-      blockList: [
-        { value: 0, prevValue: 0 }
-      ]
+      blockList: [{ value: 0, prevValue: 0 }]
     };
   },
   methods: {
@@ -41,9 +42,10 @@ export default {
         value: parseInt(variable),
         prevValue: this.blockList[this.blockList.length - 1].value
       });
-      console.log(this.blockList);
+    },
+    reset() {
+      this.blockList = [{ value: 0, prevValue: 0 }];
     }
-
   }
 };
 </script>

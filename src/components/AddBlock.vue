@@ -18,11 +18,7 @@ export default {
     };
   },
   methods: {
-    addBlock: function(event) {
-      // `this` inside methods point to the Vue instance
-      //alert('Hello ' + this.tempNum + '!')
-      // `event` is the native DOM event
-      //alert(event.target.tagName)
+    addBlock: function() {
       this.$emit("inputData", this.tempNum);
       this.tempNum = "";
     }
