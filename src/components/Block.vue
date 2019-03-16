@@ -1,8 +1,11 @@
 <template>
   <div class="block">
     <label>DATA:</label>
-    <input type="text" v-model="tempNum" @keyup.enter="submit">
-    <p>Previous Value: {{ prevValue }}</p>
+    <input type="text" v-model="tempData" @keyup.enter="submit">
+    <p>Previous hash: {{ prevHash }}</p>
+    <p>Hash: {{ hash }}</p>
+    <p>Timestamp: {{ timestamp }}</p>
+    <p>Nonce: {{ nonce }}</p>
   </div>
 </template>
 
@@ -11,24 +14,27 @@ export default {
   name: "Block",
   props: {
     blockNum: Number,
-    value: Number,
-    prevValue: Number
+    data: String,
+    prevHash: String,
+    hash: String,
+    timestamp: Number,
+    nonce: Number
   },
   data() {
     return {
-      tempNum: ""
+      tempData: ""
     };
   },
   methods: {
     submit: function() {
       this.$emit("inputData", {
         blockNum: this.blockNum,
-        value: parseInt(this.tempNum)
+        data: this.tempData
       });
     }
   },
   beforeMount() {
-    this.tempNum = this.value;
+    this.tempData = this.data;
   }
 };
 </script>

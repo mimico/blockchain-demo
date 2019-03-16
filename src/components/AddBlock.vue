@@ -1,25 +1,21 @@
 <template>
   <div>
     <label>DATA:</label>
-    <input type="text" placeholder="Enter a number" v-model="tempNum">
+    <input type="text" placeholder="Enter a data" v-model="tempData">
     <button v-on:click="addBlock">+ Add New Block</button>
   </div>
 </template>
 <script>
 export default {
   name: "AddBlock",
-  props: {
-    value: Number,
-    prevValue: Number
-  },
   data() {
     return {
-      tempNum: ""
+      tempData: ""
     };
   },
   methods: {
     addBlock: function() {
-      this.$emit("inputData", this.tempNum);
+      this.$emit("inputData", this.tempData);
       this.tempNum = "";
     }
   }

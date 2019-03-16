@@ -3,9 +3,12 @@
     <ResetBlockchain @reset="reset"/>
     <div id="blocks" v-for="(block, index) in blockList" :key="index">
       <Block
-        @inputData="updateNum"
-        :prevValue="block.prevValue"
-        :value="block.value"
+        @inputData="updateData"
+        :data="block.data"
+        :prevHash="block.prevHash"
+        :hash="block.hash"
+        :timestamp="block.timestamp"
+        :nonce="block.nonce"
         :blockNum="index"
       />
     </div>
@@ -18,6 +21,7 @@
 import Block from "./Block.vue";
 import AddBlock from "./AddBlock.vue";
 import ResetBlockchain from "./ResetBlockchain.vue";
+// const BC_DIFFICULTY = 0
 
 export default {
   components: {
@@ -27,24 +31,43 @@ export default {
   },
   data: function() {
     return {
-      blockList: [{ value: 0, prevValue: 0 }]
+      blockList: [
+        {
+          data: "Genesis block data",
+          prevHash: "0xDEADBEEF",
+          hash: "0xDEADBEEF",
+          timestamp: Date.now(),
+          nonce: 0
+        }
+      ]
     };
   },
   methods: {
-    updateNum(payload) {
-      this.blockList[payload.blockNum].value = payload.value;
+    updateData(payload) {
+      this.blockList[payload.blockNum].data = payload.data;
       if (payload.blockNum < this.blockList.length - 1) {
-        this.blockList[payload.blockNum + 1].prevValue = payload.value;
+        this.blockList[payload.blockNum + 1].prevHash = "0xDEADBEEF";
       }
     },
     addNewBlock(variable) {
       this.blockList.push({
-        value: parseInt(variable),
-        prevValue: this.blockList[this.blockList.length - 1].value
+        data: variable,
+        prevHash: "0xDEADBEEF",
+        hash: "0xDEADBEEF",
+        timestamp: Date.now(),
+        nonce: 0
       });
     },
     reset() {
-      this.blockList = [{ value: 0, prevValue: 0 }];
+      this.blockList = [
+        {
+          data: "Genesis block data",
+          prevHash: "0xDEADBEEF",
+          hash: "0xDEADBEEF",
+          timestamp: Date.now(),
+          nonce: 0
+        }
+      ];
     }
   }
 };
