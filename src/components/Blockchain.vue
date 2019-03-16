@@ -8,23 +8,24 @@
         :blockNum="index"
       />
     </div>
+    <AddBlock @inputData="addNewBlock"/>
     <p>List is: {{ blockList }}</p>
   </div>
 </template>
 
 <script>
 import Block from "./Block.vue";
+import AddBlock from "./AddBlock.vue";
 
 export default {
   components: {
-    Block
+    Block,
+    AddBlock
   },
   data: function() {
     return {
       blockList: [
-        { value: 0, prevValue: 0 },
-        { value: 3, prevValue: 0 },
-        { value: 8, prevValue: 3 }
+        { value: 0, prevValue: 0 }
       ]
     };
   },
@@ -34,7 +35,15 @@ export default {
       if (payload.blockNum < this.blockList.length - 1) {
         this.blockList[payload.blockNum + 1].prevValue = payload.value;
       }
+    },
+    addNewBlock(variable) {
+      this.blockList.push({
+        value: parseInt(variable),
+        prevValue: this.blockList[this.blockList.length - 1].value
+      });
+      console.log(this.blockList);
     }
+
   }
 };
 </script>
