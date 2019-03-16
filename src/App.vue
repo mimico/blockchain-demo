@@ -10,7 +10,7 @@ import Blockchain from "./components/Blockchain.vue";
 export default {
   name: "app",
   components: {
-    Blockchain,
+    Blockchain
   }
 };
 </script>

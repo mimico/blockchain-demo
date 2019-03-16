@@ -1,8 +1,11 @@
 <template>
   <div class="blockchain">
-    <div>
-      <ResetBlockchain @reset="reset"/>
-    </div>
+    <b-navbar type="dark" variant="info">
+      <b-navbar-brand href="#">Blockchain Demo</b-navbar-brand>
+      <b-navbar-nav class="ml-auto">
+        <ResetBlockchain @reset="reset"/>
+      </b-navbar-nav>
+    </b-navbar>
     <div id="blocks" v-for="(block, index) in blockList" :key="index">
       <Block
         @inputData="updateData"

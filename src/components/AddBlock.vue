@@ -1,9 +1,25 @@
 <template>
-  <div>
-    <label>DATA:</label>
-    <input type="text" placeholder="Enter a data" v-model="tempData">
-    <button v-on:click="addBlock">+ Add New Block</button>
-  </div>
+  <b-card class="block">
+    <b-container fluid>
+      <b-row>
+        <b-col>Data:</b-col>
+        <b-col cols="9">
+          <b-form-input
+            type="text"
+            placeholder="Enter data for next block"
+            v-model="tempData"
+            @keyup.enter="addBlock"
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col></b-col>
+        <b-col>
+          <button v-on:click="addBlock">+ Add New Block</button>
+        </b-col>
+      </b-row>
+    </b-container>
+  </b-card>
 </template>
 <script>
 export default {
@@ -16,10 +32,16 @@ export default {
   methods: {
     addBlock: function() {
       this.$emit("inputData", this.tempData);
-      this.tempNum = "";
+      this.tempData = "";
     }
   }
 };
 </script>
+
 <style>
+.block {
+  width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

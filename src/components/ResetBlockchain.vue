@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-on:click="reset">Reset Blockchain</button>
+    <b-button v-on:click="reset">Reset Blockchain</b-button>
   </div>
 </template>
 <script>
