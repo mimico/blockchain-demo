@@ -1,6 +1,8 @@
 <template>
   <div class="blockchain">
-    <ResetBlockchain @reset="reset"/>
+    <div>
+      <ResetBlockchain @reset="reset"/>
+    </div>
     <div id="blocks" v-for="(block, index) in blockList" :key="index">
       <Block
         @inputData="updateData"
@@ -22,6 +24,15 @@ import Block from "./Block.vue";
 import AddBlock from "./AddBlock.vue";
 import ResetBlockchain from "./ResetBlockchain.vue";
 // const BC_DIFFICULTY = 0
+
+// https://stackoverflow.com/a/26375459
+function toHex(str) {
+  var result = "";
+  for (var i = 0; i < str.length; i++) {
+    result += str.charCodeAt(i).toString(16);
+  }
+  return result;
+}
 
 export default {
   components: {
@@ -52,11 +63,12 @@ export default {
     addNewBlock(variable) {
       this.blockList.push({
         data: variable,
-        prevHash: "0xDEADBEEF",
+        prevHash: this.blockList[this.blockList.length - 1].hash,
         hash: "0xDEADBEEF",
         timestamp: Date.now(),
         nonce: 0
       });
+      this.hashBlock(this.blockList.length - 1);
     },
     reset() {
       this.blockList = [
@@ -68,7 +80,22 @@ export default {
           nonce: 0
         }
       ];
+      this.hashBlock(0);
+    },
+    hashBlock(index) {
+      let blWithoutHash = {
+        data: this.blockList[index].data,
+        timestamp: this.blockList[index].timestamp,
+        previous_hash: this.blockList[index].previous_hash,
+        nonce: this.blockList[index].nonce
+      };
+      let stringifiedBl = JSON.stringify(blWithoutHash);
+      let hexifiedBl = toHex(stringifiedBl);
+      this.blockList[index].hash = ethers.utils.keccak256("0x" + hexifiedBl);
     }
+  },
+  beforeMount() {
+    this.hashBlock(0);
   }
 };
 </script>
