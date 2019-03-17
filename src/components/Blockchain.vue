@@ -32,38 +32,6 @@ export default {
       return this.$store.getters.blockList
     },
   },
-  // methods: {
-  //   updateData(payload) {
-  //     this.blockList[payload.blockNum].data = payload.data;
-  //     if (payload.blockNum < this.blockList.length - 1) {
-  //       this.blockList[payload.blockNum + 1].prevHash = "0xDEADBEEF";
-  //     }
-  //   },
- 
-  //   reset() {
-  //     this.blockList = [
-  //       {
-  //         data: "Genesis block data",
-  //         prevHash: "0xDEADBEEF",
-  //         hash: "0xDEADBEEF",
-  //         timestamp: Date.now(),
-  //         nonce: 0
-  //       }
-  //     ];
-  //     this.hashBlock(0);
-  //   },
-  //   hashBlock(index) {
-  //     let blWithoutHash = {
-  //       data: this.blockList[index].data,
-  //       timestamp: this.blockList[index].timestamp,
-  //       previous_hash: this.blockList[index].previous_hash,
-  //       nonce: this.blockList[index].nonce
-  //     };
-  //     let stringifiedBl = JSON.stringify(blWithoutHash);
-  //     let hexifiedBl = toHex(stringifiedBl);
-  //     this.blockList[index].hash = ethers.utils.keccak256("0x" + hexifiedBl);
-  //   }
-  // },
   beforeMount() {
     this.$store.commit('reset')
   }
