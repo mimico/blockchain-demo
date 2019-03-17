@@ -16,7 +16,7 @@ export default {
   methods: {
     addBlock: function() {
       this.$emit("inputData", this.tempData);
-      this.tempNum = "";
+      this.tempData = "";
     }
   }
 };

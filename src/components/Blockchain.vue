@@ -4,7 +4,7 @@
       <ResetBlockchain @reset="reset"/>
     </div>
     <div id="blocks" v-for="(block, index) in blockList" :key="index">
-      <Block
+      <Block v-if="renderComponent"
         @inputData="updateData"
         :data="block.data"
         :prevHash="block.prevHash"
@@ -42,6 +42,7 @@ export default {
   },
   data: function() {
     return {
+      renderComponent: true,
       blockList: [
         {
           data: "Genesis block data",
@@ -54,6 +55,14 @@ export default {
     };
   },
   methods: {
+    forceRerender () {
+       this.renderComponent = false;
+       this.$nextTick(() => {
+         this.renderComponent = true;
+       }
+
+       )
+    },
     updateData(payload) {
       this.blockList[payload.blockNum].data = payload.data;
       if (payload.blockNum < this.blockList.length - 1) {
@@ -79,8 +88,9 @@ export default {
           timestamp: Date.now(),
           nonce: 0
         }
-      ];
+      ],
       this.hashBlock(0);
+      this.forceRerender();
     },
     hashBlock(index) {
       let blWithoutHash = {
