@@ -54,28 +54,13 @@ export default {
           blockNum: this.blockNum,
           data: value
         });
-     }
+      }
     }
   },
-
   methods: {
-    remine: function () {
-      //alert ("remine called")
-      this.$store.commit("remineBlock", {
-        blockNum: this.blockNum,
-        data: this.tempData
-      });
-
-    },
-    submit: function() {
-      this.$emit("inputData", {
-        blockNum: this.blockNum,
-        data: this.tempData
-      });
+    remine: function() {
+      this.$store.commit("remineBlock", this.blockNum);
     }
-  },
-  beforeMount() {
-    this.tempData = this.data;
   }
 };
 </script>
@@ -85,7 +70,8 @@ export default {
   background: linear-gradient(45deg, rgb(0, 198, 255), rgb(0, 114, 255));
   color: white;
   border: transparent;
-  box-shadow: rgba(50, 50, 93, 0.1) 0px 7px 14px, rgba(0, 0, 0, 0.08) 0px 3px 6px;
+  box-shadow: rgba(50, 50, 93, 0.1) 0px 7px 14px,
+    rgba(0, 0, 0, 0.08) 0px 3px 6px;
   width: 40px;
   padding: 0;
   font-size: 16px;

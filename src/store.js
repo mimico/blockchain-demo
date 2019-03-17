@@ -40,7 +40,7 @@ function calculateNonce(block) {
   let nonce = 0
   clonedBl["nonce"] = nonce
   let hash = hashBlock(clonedBl)
-  while(!(hash.substring(2, BC_DIFFICULTY+2) === zero.repeat(BC_DIFFICULTY))) {
+  while (!(hash.substring(2, BC_DIFFICULTY + 2) === zero.repeat(BC_DIFFICULTY))) {
     nonce++
     clonedBl["nonce"] = nonce
     hash = hashBlock(clonedBl)
@@ -74,10 +74,10 @@ export default new Vuex.Store({
     updateBlockData(state, payload) {
       state.blockList[payload.blockNum].data = payload.data;
       state.blockList[payload.blockNum].hash = hashBlock(state.blockList[payload.blockNum]);
-     // state.blockList[payload.blockNum].nonce = calculateNonce(state.blockList[payload.blockNum]);
+      // state.blockList[payload.blockNum].nonce = calculateNonce(state.blockList[payload.blockNum]);
     },
-    remineBlock(state,payload) {
-      state.blockList[payload.blockNum].nonce = calculateNonce(state.blockList[payload.blockNum]);
+    remineBlock(state, blockNum) {
+      state.blockList[blockNum].nonce = calculateNonce(state.blockList[blockNum]);
     },
     addNewBlock(state) {
       state.blockList.push({
