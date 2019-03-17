@@ -43,6 +43,7 @@ function calculateNonce(block) {
     clonedBl["nonce"] = nonce
     hash = hashBlock(clonedBl)
   }
+  block.hash = hash
   return nonce
 }
 
