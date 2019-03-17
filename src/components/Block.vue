@@ -4,24 +4,24 @@
       <b-row>
         <b-col>Data:</b-col>
         <b-col cols="9">
-          <b-form-input type="text" v-model="tempData" @keyup.enter="submit"/>
+          <b-form-input type="text" v-model="data" @keyup.enter="submit"/>
         </b-col>
       </b-row>
       <b-row>
         <b-col>Previous hash:</b-col>
-        <b-col cols="9" class="hex">{{ prevHash }}</b-col>
+        <b-col cols="9" class="hex">{{ block.prevHash }}</b-col>
       </b-row>
       <b-row>
         <b-col>Hash:</b-col>
-        <b-col cols="9" class="hex">{{ hash }}</b-col>
+        <b-col cols="9" class="hex">{{ block.hash }}</b-col>
       </b-row>
       <b-row>
         <b-col>Timestamp:</b-col>
-        <b-col cols="9">{{ timestamp }}</b-col>
+        <b-col cols="9">{{ block.timestamp }}</b-col>
       </b-row>
       <b-row>
         <b-col>Nonce:</b-col>
-        <b-col cols="9">{{ nonce }}</b-col>
+        <b-col cols="9">{{ block.nonce }}</b-col>
       </b-row>
     </b-container>
   </b-card>
@@ -31,18 +31,27 @@
 export default {
   name: "Block",
   props: {
-    blockNum: Number,
-    data: String,
-    prevHash: String,
-    hash: String,
-    timestamp: Number,
-    nonce: Number
+    blockNum: Number
   },
-  data() {
-    return {
-      tempData: ""
-    };
+  computed: {
+    block: {
+      get() {
+        return this.$store.getters.block(this.blockNum);
+      }
+    },
+    data: {
+      get() {
+        return this.block.data;
+      },
+      set(value) {
+        this.$store.commit("updateBlockData", {
+          blockNum: this.blockNum,
+          data: value
+        });
+      }
+    }
   },
+
   methods: {
     submit: function() {
       this.$emit("inputData", {

@@ -11,6 +11,7 @@ function toHex(str) {
   }
   return result;
 }
+
 function hashBlock(block) {
   let blWithoutHash = {
     data: block.data,
@@ -40,14 +41,15 @@ export default new Vuex.Store({
   getters: {
     blockList: state => {
       return state.blockList
+    },
+    block: state => index => {
+      return state.blockList[index]
     }
   },
   mutations: {
     updateBlockData(state, payload) {
       state.blockList[payload.blockNum].data = payload.data;
-      if (payload.blockNum < state.blockList.length - 1) {
-        state.blockList[payload.blockNum + 1].prevHash = "0xDEADBEEF";
-      }
+      state.blockList[payload.blockNum].hash = hashBlock(state.blockList[payload.blockNum]);
     },
     addNewBlock(state) {
       state.blockList.push({

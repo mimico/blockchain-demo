@@ -8,11 +8,6 @@
     </b-navbar>
     <div id="blocks" v-for="(block, index) in blockList" :key="index">
       <Block
-        :data="block.data"
-        :prevHash="block.prevHash"
-        :hash="block.hash"
-        :timestamp="block.timestamp"
-        :nonce="block.nonce"
         :blockNum="index"
       />
     </div>
@@ -25,7 +20,6 @@
 import Block from "./Block.vue";
 import AddBlock from "./AddBlock.vue";
 import ResetBlockchain from "./ResetBlockchain.vue";
-// const BC_DIFFICULTY = 0
 
 // https://stackoverflow.com/a/26375459
 function toHex(str) {

@@ -27,10 +27,10 @@ export default {
   computed: {
     newBlockData: {
       get() {
-        return this.$store.state.newBlockData
+        return this.$store.state.newBlockData;
       },
       set(value) {
-        this.$store.commit('setNewBlockData', value)
+        this.$store.commit("setNewBlockData", value);
       }
     }
   },
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     addBlock: function() {
-      this.$store.commit('addNewBlock')
+      this.$store.commit("addNewBlock");
     }
   }
 };
