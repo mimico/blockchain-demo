@@ -54,13 +54,18 @@ export default {
           blockNum: this.blockNum,
           data: value
         });
-      }
+     }
     }
   },
 
   methods: {
     remine: function () {
-      alert("remine the thing")
+      //alert ("remine called")
+      this.$store.commit("remineBlock", {
+        blockNum: this.blockNum,
+        data: this.tempData
+      });
+
     },
     submit: function() {
       this.$emit("inputData", {

@@ -74,6 +74,9 @@ export default new Vuex.Store({
     updateBlockData(state, payload) {
       state.blockList[payload.blockNum].data = payload.data;
       state.blockList[payload.blockNum].hash = hashBlock(state.blockList[payload.blockNum]);
+     // state.blockList[payload.blockNum].nonce = calculateNonce(state.blockList[payload.blockNum]);
+    },
+    remineBlock(state,payload) {
       state.blockList[payload.blockNum].nonce = calculateNonce(state.blockList[payload.blockNum]);
     },
     addNewBlock(state) {
