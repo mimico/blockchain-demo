@@ -21,15 +21,6 @@ import Block from "./Block.vue";
 import AddBlock from "./AddBlock.vue";
 import ResetBlockchain from "./ResetBlockchain.vue";
 
-// https://stackoverflow.com/a/26375459
-function toHex(str) {
-  var result = "";
-  for (var i = 0; i < str.length; i++) {
-    result += str.charCodeAt(i).toString(16);
-  }
-  return result;
-}
-
 export default {
   components: {
     Block,
