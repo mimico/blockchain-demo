@@ -27,6 +27,8 @@ function hashBlock(block) {
 
 // calculates a nonce for a given block
 function calculateNonce(block) {
+  const BC_DIFFICULTY = 3
+  let zero = "0"
   let bl = {
     data: block.data,
     timestamp: block.timestamp,
@@ -38,7 +40,7 @@ function calculateNonce(block) {
   let nonce = 0
   clonedBl["nonce"] = nonce
   let hash = hashBlock(clonedBl)
-  while(!(hash.substring(2, 5) === "000")) {
+  while(!(hash.substring(2, BC_DIFFICULTY+2) === zero.repeat(BC_DIFFICULTY))) {
     nonce++
     clonedBl["nonce"] = nonce
     hash = hashBlock(clonedBl)
