@@ -23,6 +23,12 @@
         <b-col>Nonce:</b-col>
         <b-col cols="9">{{ block.nonce }}</b-col>
       </b-row>
+      <b-row>
+        <b-col></b-col>
+        <b-col>
+          <button class="remine" v-on:click="remine">R</button>
+        </b-col>
+      </b-row>
     </b-container>
   </b-card>
 </template>
@@ -53,6 +59,9 @@ export default {
   },
 
   methods: {
+    remine: function () {
+      alert("remine the thing")
+    },
     submit: function() {
       this.$emit("inputData", {
         blockNum: this.blockNum,
@@ -67,6 +76,17 @@ export default {
 </script>
 
 <style scoped>
+.remine {
+  background: linear-gradient(45deg, rgb(0, 198, 255), rgb(0, 114, 255));
+  color: white;
+  border: transparent;
+  box-shadow: rgba(50, 50, 93, 0.1) 0px 7px 14px, rgba(0, 0, 0, 0.08) 0px 3px 6px;
+  width: 40px;
+  padding: 0;
+  font-size: 16px;
+  border-radius: 50%;
+  height: 40px;
+}
 .hex {
   font-family: monospace;
 }
