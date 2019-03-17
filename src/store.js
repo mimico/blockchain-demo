@@ -20,6 +20,7 @@ function hashBlock(block) {
   };
   let stringifiedBl = JSON.stringify(blWithoutHash);
   let hexifiedBl = toHex(stringifiedBl);
+  // eslint-disable-next-line no-undef
   return ethers.utils.keccak256("0x" + hexifiedBl);
 }
 
@@ -57,6 +58,18 @@ export default new Vuex.Store({
         nonce: 0
       });
       state.newBlockData = ""
+      state.blockList[state.blockList.length - 1].hash = hashBlock(state.blockList[state.blockList.length - 1])
+    },
+    reset(state) {
+      state.blockList = [
+        {
+          data: "Genesis block data",
+          prevHash: "0xDEADBEEF",
+          hash: "0xDEADBEEF",
+          timestamp: Date.now(),
+          nonce: 0
+        }
+      ];
       state.blockList[state.blockList.length - 1].hash = hashBlock(state.blockList[state.blockList.length - 1])
     },
     setNewBlockData(state, payload) {

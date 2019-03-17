@@ -54,16 +54,7 @@ export default {
   //       this.blockList[payload.blockNum + 1].prevHash = "0xDEADBEEF";
   //     }
   //   },
-  //   addNewBlock(variable) {
-  //     this.blockList.push({
-  //       data: variable,
-  //       prevHash: this.blockList[this.blockList.length - 1].hash,
-  //       hash: "0xDEADBEEF",
-  //       timestamp: Date.now(),
-  //       nonce: 0
-  //     });
-  //     this.hashBlock(this.blockList.length - 1);
-  //   },
+ 
   //   reset() {
   //     this.blockList = [
   //       {
@@ -88,9 +79,9 @@ export default {
   //     this.blockList[index].hash = ethers.utils.keccak256("0x" + hexifiedBl);
   //   }
   // },
-  // beforeMount() {
-  //   this.hashBlock(0);
-  // }
+  beforeMount() {
+    this.$store.commit('reset')
+  }
 };
 </script>
 
