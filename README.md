@@ -13,3 +13,8 @@ $ cd blockchain-demo
 $ npm install
 $ npm run serve
 ```
+
+# The Developers
+
+> Dmytro Kokarovtsev
+> Tiffany Antopolski
