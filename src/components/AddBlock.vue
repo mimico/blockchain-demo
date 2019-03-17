@@ -7,7 +7,7 @@
           <b-form-input
             type="text"
             placeholder="Enter data for next block"
-            v-model="tempData"
+            v-model="newBlockData"
             @keyup.enter="addBlock"
           />
         </b-col>
@@ -24,6 +24,16 @@
 <script>
 export default {
   name: "AddBlock",
+  computed: {
+    newBlockData: {
+      get() {
+        return this.$store.state.newBlockData
+      },
+      set(value) {
+        this.$store.commit('setNewBlockData', value)
+      }
+    }
+  },
   data() {
     return {
       tempData: ""
@@ -31,8 +41,7 @@ export default {
   },
   methods: {
     addBlock: function() {
-      this.$emit("inputData", this.tempData);
-      this.tempData = "";
+      this.$store.commit('addNewBlock')
     }
   }
 };

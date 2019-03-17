@@ -3,12 +3,11 @@
     <b-navbar type="dark" variant="info">
       <b-navbar-brand href="#">Blockchain Demo</b-navbar-brand>
       <b-navbar-nav class="ml-auto">
-        <ResetBlockchain @reset="reset"/>
+        <ResetBlockchain />
       </b-navbar-nav>
     </b-navbar>
     <div id="blocks" v-for="(block, index) in blockList" :key="index">
       <Block
-        @inputData="updateData"
         :data="block.data"
         :prevHash="block.prevHash"
         :hash="block.hash"
@@ -17,7 +16,7 @@
         :blockNum="index"
       />
     </div>
-    <AddBlock @inputData="addNewBlock"/>
+    <AddBlock />
     <p>List is: {{ blockList }}</p>
   </div>
 </template>
@@ -43,63 +42,55 @@ export default {
     AddBlock,
     ResetBlockchain
   },
-  data: function() {
-    return {
-      blockList: [
-        {
-          data: "Genesis block data",
-          prevHash: "0xDEADBEEF",
-          hash: "0xDEADBEEF",
-          timestamp: Date.now(),
-          nonce: 0
-        }
-      ]
-    };
+  computed: {
+    blockList() {
+      return this.$store.getters.blockList
+    },
   },
-  methods: {
-    updateData(payload) {
-      this.blockList[payload.blockNum].data = payload.data;
-      if (payload.blockNum < this.blockList.length - 1) {
-        this.blockList[payload.blockNum + 1].prevHash = "0xDEADBEEF";
-      }
-    },
-    addNewBlock(variable) {
-      this.blockList.push({
-        data: variable,
-        prevHash: this.blockList[this.blockList.length - 1].hash,
-        hash: "0xDEADBEEF",
-        timestamp: Date.now(),
-        nonce: 0
-      });
-      this.hashBlock(this.blockList.length - 1);
-    },
-    reset() {
-      this.blockList = [
-        {
-          data: "Genesis block data",
-          prevHash: "0xDEADBEEF",
-          hash: "0xDEADBEEF",
-          timestamp: Date.now(),
-          nonce: 0
-        }
-      ];
-      this.hashBlock(0);
-    },
-    hashBlock(index) {
-      let blWithoutHash = {
-        data: this.blockList[index].data,
-        timestamp: this.blockList[index].timestamp,
-        previous_hash: this.blockList[index].previous_hash,
-        nonce: this.blockList[index].nonce
-      };
-      let stringifiedBl = JSON.stringify(blWithoutHash);
-      let hexifiedBl = toHex(stringifiedBl);
-      this.blockList[index].hash = ethers.utils.keccak256("0x" + hexifiedBl);
-    }
-  },
-  beforeMount() {
-    this.hashBlock(0);
-  }
+  // methods: {
+  //   updateData(payload) {
+  //     this.blockList[payload.blockNum].data = payload.data;
+  //     if (payload.blockNum < this.blockList.length - 1) {
+  //       this.blockList[payload.blockNum + 1].prevHash = "0xDEADBEEF";
+  //     }
+  //   },
+  //   addNewBlock(variable) {
+  //     this.blockList.push({
+  //       data: variable,
+  //       prevHash: this.blockList[this.blockList.length - 1].hash,
+  //       hash: "0xDEADBEEF",
+  //       timestamp: Date.now(),
+  //       nonce: 0
+  //     });
+  //     this.hashBlock(this.blockList.length - 1);
+  //   },
+  //   reset() {
+  //     this.blockList = [
+  //       {
+  //         data: "Genesis block data",
+  //         prevHash: "0xDEADBEEF",
+  //         hash: "0xDEADBEEF",
+  //         timestamp: Date.now(),
+  //         nonce: 0
+  //       }
+  //     ];
+  //     this.hashBlock(0);
+  //   },
+  //   hashBlock(index) {
+  //     let blWithoutHash = {
+  //       data: this.blockList[index].data,
+  //       timestamp: this.blockList[index].timestamp,
+  //       previous_hash: this.blockList[index].previous_hash,
+  //       nonce: this.blockList[index].nonce
+  //     };
+  //     let stringifiedBl = JSON.stringify(blWithoutHash);
+  //     let hexifiedBl = toHex(stringifiedBl);
+  //     this.blockList[index].hash = ethers.utils.keccak256("0x" + hexifiedBl);
+  //   }
+  // },
+  // beforeMount() {
+  //   this.hashBlock(0);
+  // }
 };
 </script>
 
