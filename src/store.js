@@ -90,6 +90,7 @@ export default new Vuex.Store({
       state.blockList[blockNum].nonce = calculateNonce(state.blockList[blockNum]);
       if (blockNum >= 0 && blockNum < state.blockList.length - 1) {
         state.blockList[blockNum + 1].prevHash = state.blockList[blockNum].hash
+        state.blockList[blockNum +1 ].hash = hashBlock(state.blockList[blockNum])
       }
     },
     addNewBlock(state) {
