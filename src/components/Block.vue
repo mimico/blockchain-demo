@@ -24,6 +24,8 @@
         <b-col class="text-right">
           <div v-if="valid">{{ block.nonce }}</div>
           <div v-else>
+            difficulty level:
+            <input class="difficulty" type="text" v-model="difficulty"/>
             <b-button class="remine" v-on:click="remine">⛏️</b-button>
           </div>
         </b-col>
@@ -95,5 +97,9 @@ export default {
 }
 .invalid {
   color: red;
+}
+.difficulty {
+  width: 25px;
+  margin-right: 15px;
 }
 </style>
