@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const BC_DIFFICULTY = 3
+
 // https://stackoverflow.com/a/26375459
 function toHex(str) {
   var result = "";
@@ -27,7 +29,6 @@ function hashBlock(block) {
 
 // calculates a nonce for a given block
 function calculateNonce(block) {
-  const BC_DIFFICULTY = 3
   let zero = "0"
   let bl = {
     data: block.data,
@@ -52,15 +53,7 @@ function calculateNonce(block) {
 export default new Vuex.Store({
   state: {
     newBlockData: "",
-    blockList: [
-      {
-        data: "Genesis block data",
-        prevHash: "0xDEADBEEF",
-        hash: "0xDEADBEEF",
-        timestamp: Date.now(),
-        nonce: 0
-      }
-    ]
+    blockList: []
   },
   getters: {
     blockList: state => {
@@ -68,13 +61,16 @@ export default new Vuex.Store({
     },
     block: state => index => {
       return state.blockList[index]
+    },
+    isBlockValid: state => index => {
+      let hash = state.blockList[index].hash
+      return hash.substring(2, BC_DIFFICULTY + 2) === "0".repeat(BC_DIFFICULTY)
     }
   },
   mutations: {
     updateBlockData(state, payload) {
       state.blockList[payload.blockNum].data = payload.data;
       state.blockList[payload.blockNum].hash = hashBlock(state.blockList[payload.blockNum]);
-      // state.blockList[payload.blockNum].nonce = calculateNonce(state.blockList[payload.blockNum]);
     },
     remineBlock(state, blockNum) {
       state.blockList[blockNum].nonce = calculateNonce(state.blockList[blockNum]);
@@ -84,7 +80,7 @@ export default new Vuex.Store({
         data: state.newBlockData,
         prevHash: state.blockList[state.blockList.length - 1].hash,
         hash: "0xDEADBEEF",
-        timestamp: Date.now(),
+        timestamp: new Date().toLocaleString(),
         nonce: 0
       });
       state.newBlockData = ""
@@ -97,7 +93,7 @@ export default new Vuex.Store({
           data: "Genesis block data",
           prevHash: "0xDEADBEEF",
           hash: "0xDEADBEEF",
-          timestamp: Date.now(),
+          timestamp: new Date().toLocaleString(),      
           nonce: 0
         }
       ];

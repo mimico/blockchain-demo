@@ -4,7 +4,7 @@
       <b-row>
         <b-col>Data:</b-col>
         <b-col cols="9">
-          <b-form-input type="text" v-model="data" @keyup.enter="submit"/>
+          <b-form-input type="text" v-model="data"/>
         </b-col>
       </b-row>
       <b-row>
@@ -16,17 +16,10 @@
         <b-col cols="9" class="hex">{{ block.hash }}</b-col>
       </b-row>
       <b-row>
-        <b-col>Timestamp:</b-col>
-        <b-col cols="9">{{ block.timestamp }}</b-col>
-      </b-row>
-      <b-row>
-        <b-col>Nonce:</b-col>
-        <b-col cols="9">{{ block.nonce }}</b-col>
-      </b-row>
-      <b-row>
-        <b-col></b-col>
-        <b-col>
-          <button class="remine" v-on:click="remine">R</button>
+        <b-col>{{ block.timestamp }}</b-col>
+        <b-col class="text-right">
+          <div v-if="valid">{{ block.nonce }}</div>
+          <div v-else><b-button class="remine" v-on:click="remine">⛏️</b-button></div>
         </b-col>
       </b-row>
     </b-container>
@@ -55,6 +48,9 @@ export default {
           data: value
         });
       }
+    },
+    valid: function() {
+      return this.$store.getters.isBlockValid(this.blockNum);
     }
   },
   methods: {

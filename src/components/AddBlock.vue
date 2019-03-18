@@ -15,7 +15,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <button v-on:click="addBlock">+ Add New Block</button>
+          <b-button v-on:click="addBlock">+ Add New Block</b-button>
         </b-col>
       </b-row>
     </b-container>
