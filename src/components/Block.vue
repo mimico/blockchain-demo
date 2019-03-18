@@ -9,17 +9,23 @@
       </b-row>
       <b-row>
         <b-col>Previous hash:</b-col>
-        <b-col cols="9" class="hex">{{ block.prevHash }}</b-col>
+        <b-col
+          cols="9"
+          class="hex"
+          v-bind:class="{ invalid: !previousHashIsValid }"
+        >{{ block.prevHash }}</b-col>
       </b-row>
       <b-row>
         <b-col>Hash:</b-col>
-        <b-col cols="9" class="hex">{{ block.hash }}</b-col>
+        <b-col cols="9" class="hex" v-bind:class="{ invalid: !valid }">{{ block.hash }}</b-col>
       </b-row>
       <b-row>
-        <b-col>{{ block.timestamp }}</b-col>
+        <b-col>{{ block.timestamp.toLocaleString() }}</b-col>
         <b-col class="text-right">
           <div v-if="valid">{{ block.nonce }}</div>
-          <div v-else><b-button class="remine" v-on:click="remine">⛏️</b-button></div>
+          <div v-else>
+            <b-button class="remine" v-on:click="remine">⛏️</b-button>
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -51,6 +57,9 @@ export default {
     },
     valid: function() {
       return this.$store.getters.isBlockValid(this.blockNum);
+    },
+    previousHashIsValid: function() {
+      return this.$store.getters.previousHashIsValid(this.blockNum);
     }
   },
   methods: {
@@ -83,5 +92,8 @@ export default {
   margin-bottom: 0.25em;
   margin-left: auto;
   margin-right: auto;
+}
+.invalid {
+  color: red;
 }
 </style>

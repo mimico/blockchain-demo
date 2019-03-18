@@ -17,8 +17,8 @@ function toHex(str) {
 function hashBlock(block) {
   let blWithoutHash = {
     data: block.data,
+    prevHash: block.prevHash,
     timestamp: block.timestamp,
-    previous_hash: block.previous_hash,
     nonce: block.nonce
   };
   let stringifiedBl = JSON.stringify(blWithoutHash);
@@ -65,22 +65,39 @@ export default new Vuex.Store({
     isBlockValid: state => index => {
       let hash = state.blockList[index].hash
       return hash.substring(2, BC_DIFFICULTY + 2) === "0".repeat(BC_DIFFICULTY)
+    },
+    previousHashIsValid: state => index => {
+      if (index > 0 && index < state.blockList.length) {
+        return (state.blockList[index].prevHash === state.blockList[index - 1].hash) &&
+          (state.blockList[index].prevHash.substring(2, BC_DIFFICULTY + 2) === "0".repeat(BC_DIFFICULTY))
+      }
+      return true
     }
   },
   mutations: {
     updateBlockData(state, payload) {
-      state.blockList[payload.blockNum].data = payload.data;
-      state.blockList[payload.blockNum].hash = hashBlock(state.blockList[payload.blockNum]);
+      let data = payload.data
+      let blockNum = payload.blockNum
+      state.blockList[blockNum].data = data;
+      state.blockList[blockNum].hash = hashBlock(state.blockList[blockNum]);
+      blockNum++
+      for (; blockNum < state.blockList.length; blockNum++) {
+        state.blockList[blockNum].prevHash = state.blockList[blockNum - 1].hash
+        state.blockList[blockNum].hash = hashBlock(state.blockList[blockNum])
+      }
     },
     remineBlock(state, blockNum) {
       state.blockList[blockNum].nonce = calculateNonce(state.blockList[blockNum]);
+      if (blockNum >= 0 && blockNum < state.blockList.length - 1) {
+        state.blockList[blockNum + 1].prevHash = state.blockList[blockNum].hash
+      }
     },
     addNewBlock(state) {
       state.blockList.push({
         data: state.newBlockData,
         prevHash: state.blockList[state.blockList.length - 1].hash,
         hash: "0xDEADBEEF",
-        timestamp: new Date().toLocaleString(),
+        timestamp: new Date(),
         nonce: 0
       });
       state.newBlockData = ""
@@ -93,7 +110,7 @@ export default new Vuex.Store({
           data: "Genesis block data",
           prevHash: "0xDEADBEEF",
           hash: "0xDEADBEEF",
-          timestamp: new Date().toLocaleString(),      
+          timestamp: new Date(),
           nonce: 0
         }
       ];
