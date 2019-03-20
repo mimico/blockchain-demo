@@ -15,7 +15,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-button v-on:click="addBlock">+ Add New Block</b-button>
+          <b-button class="addBlock" v-on:click="addBlock">+ ADD NEW BLOCK</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -52,5 +52,11 @@ export default {
   width: 50rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.addBlock {
+    margin-top: 30px;
+    background: linear-gradient(45deg,#d4145a,#fbb03b);
+    color: #fff;
 }
 </style>

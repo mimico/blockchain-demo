@@ -12,12 +12,12 @@
         <b-col
           cols="9"
           class="hex"
-          v-bind:class="{ invalid: !previousHashIsValid }"
+          v-bind:class="{ invalid: !previousHashIsValid, valid:previousHashIsValid }"
         >{{ block.prevHash }}</b-col>
       </b-row>
       <b-row>
         <b-col>Hash:</b-col>
-        <b-col cols="9" class="hex" v-bind:class="{ invalid: !valid }">{{ block.hash }}</b-col>
+        <b-col cols="9" class="hex" v-bind:class="{ invalid: !valid, valid }">{{ block.hash }}</b-col>
       </b-row>
       <b-row>
         <b-col>{{ block.timestamp.toLocaleString() }}</b-col>
@@ -95,5 +95,8 @@ export default {
 }
 .invalid {
   color: red;
+}
+.valid {
+  color: green;
 }
 </style>
