@@ -10,7 +10,6 @@
       <Block :blockNum="index"/>
     </div>
     <AddBlock/>
-    <p>List is: {{ blockList }}</p>
   </div>
 </template>
 
