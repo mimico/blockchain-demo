@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const BC_DIFFICULTY = 3
+//const state.bc_difficulty = 3
 
 // https://stackoverflow.com/a/26375459
 function toHex(str) {
@@ -28,7 +28,7 @@ function hashBlock(block) {
 }
 
 // calculates a nonce for a given block
-function calculateNonce(block) {
+function calculateNonce(block, difficulty) {
   let zero = "0"
   let bl = {
     data: block.data,
@@ -41,7 +41,7 @@ function calculateNonce(block) {
   let nonce = 0
   clonedBl["nonce"] = nonce
   let hash = hashBlock(clonedBl)
-  while (!(hash.substring(2, BC_DIFFICULTY + 2) === zero.repeat(BC_DIFFICULTY))) {
+  while (!(hash.substring(2, difficulty + 2) === zero.repeat(difficulty))) {
     nonce++
     clonedBl["nonce"] = nonce
     hash = hashBlock(clonedBl)
@@ -53,7 +53,8 @@ function calculateNonce(block) {
 export default new Vuex.Store({
   state: {
     newBlockData: "",
-    blockList: []
+    blockList: [],
+    bc_difficulty: 2
   },
   getters: {
     blockList: state => {
@@ -64,12 +65,12 @@ export default new Vuex.Store({
     },
     isBlockValid: state => index => {
       let hash = state.blockList[index].hash
-      return hash.substring(2, BC_DIFFICULTY + 2) === "0".repeat(BC_DIFFICULTY)
+      return hash.substring(2, state.bc_difficulty + 2) === "0".repeat(state.bc_difficulty)
     },
     previousHashIsValid: state => index => {
       if (index > 0 && index < state.blockList.length) {
         return (state.blockList[index].prevHash === state.blockList[index - 1].hash) &&
-          (state.blockList[index].prevHash.substring(2, BC_DIFFICULTY + 2) === "0".repeat(BC_DIFFICULTY))
+          (state.blockList[index].prevHash.substring(2, state.bc_difficulty + 2) === "0".repeat(state.bc_difficulty))
       }
       return true
     }
@@ -87,7 +88,7 @@ export default new Vuex.Store({
       }
     },
     remineBlock(state, blockNum) {
-      state.blockList[blockNum].nonce = calculateNonce(state.blockList[blockNum]);
+      state.blockList[blockNum].nonce = calculateNonce(state.blockList[blockNum], state.bc_difficulty);
       if (blockNum >= 0 && blockNum < state.blockList.length - 1) {
         state.blockList[blockNum + 1].prevHash = state.blockList[blockNum].hash
         state.blockList[blockNum +1 ].hash = hashBlock(state.blockList[blockNum])
@@ -103,7 +104,7 @@ export default new Vuex.Store({
       });
       state.newBlockData = ""
       state.blockList[state.blockList.length - 1].hash = hashBlock(state.blockList[state.blockList.length - 1])
-      state.blockList[state.blockList.length - 1].nonce = calculateNonce(state.blockList[state.blockList.length - 1])
+      state.blockList[state.blockList.length - 1].nonce = calculateNonce(state.blockList[state.blockList.length - 1], state.bc_difficulty)
     },
     reset(state) {
       state.blockList = [
@@ -116,7 +117,7 @@ export default new Vuex.Store({
         }
       ];
       state.blockList[state.blockList.length - 1].hash = hashBlock(state.blockList[state.blockList.length - 1])
-      state.blockList[state.blockList.length - 1].nonce = calculateNonce(state.blockList[state.blockList.length - 1])
+      state.blockList[state.blockList.length - 1].nonce = calculateNonce(state.blockList[state.blockList.length - 1], state.bc_difficulty)
     },
     setNewBlockData(state, payload) {
       state.newBlockData = payload
