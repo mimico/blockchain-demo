@@ -8,6 +8,11 @@
 <script>
 export default {
   name: "ResetBlockchain",
+  data: function() {
+      return {
+        difficulty: this.difficulty
+      };
+  },
   methods: {
     reset: function() {
       this.$store.commit("reset");
