@@ -15,7 +15,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-button class="addBlock" v-on:click="addBlock">+ ADD NEW BLOCK</b-button>
+          <button class="addBlock" v-on:click="addBlock">+ ADD NEW BLOCK</button>
         </b-col>
       </b-row>
     </b-container>
@@ -56,7 +56,24 @@ export default {
 
 .addBlock {
     margin-top: 30px;
-    background: linear-gradient(45deg,#d4145a,#fbb03b);
+    margin-bottom: 10px;
+    border-radius: 6.25em;
+    padding: 10px 15px;
+    height: auto;
+    background: linear-gradient(45deg,#222,#17a2b8);
+    border: none;
     color: #fff;
+    animation: pulseShadow 1.5s infinite;
+}
+@keyframes pulseShadow {
+  0% {
+            box-shadow: 0 0 0 0 rgba(23, 162, 184, .5);
+  }
+  50% {
+            box-shadow: 0 0 0 15px rgba(23, 162, 184, 0)
+  }
+  100% {
+            box-shadow: 0 0 0 0 rgba(23, 162, 184, 0);
+  }
 }
 </style>

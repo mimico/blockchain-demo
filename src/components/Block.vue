@@ -72,7 +72,7 @@ export default {
 
 <style scoped>
 .remine {
-  background: linear-gradient(45deg, rgb(0, 198, 255), rgb(0, 114, 255));
+  background: linear-gradient(45deg, rgb(0, 198, 255), rgb(23, 162, 184));
   color: white;
   border: transparent;
   box-shadow: rgba(50, 50, 93, 0.1) 0px 7px 14px,
