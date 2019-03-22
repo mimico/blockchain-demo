@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-//const state.bc_difficulty = 3
 
 // https://stackoverflow.com/a/26375459
 function toHex(str) {
@@ -57,6 +56,9 @@ export default new Vuex.Store({
     bc_difficulty: 2
   },
   getters: {
+    difficulty: state => {
+      return state.bc_difficulty
+    },
     blockList: state => {
       return state.blockList
     },
@@ -76,6 +78,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    updateDifficulty(state, payload) {
+      state.bc_difficulty = payload;
+    },
     updateBlockData(state, payload) {
       let data = payload.data
       let blockNum = payload.blockNum

@@ -10,11 +10,12 @@ export default {
   name: "ResetBlockchain",
   data: function() {
       return {
-        difficulty: this.difficulty
+        difficulty: 2
       };
   },
   methods: {
     reset: function() {
+      this.$store.commit("updateDifficulty", parseInt(this.difficulty));
       this.$store.commit("reset");
     }
   }
@@ -33,6 +34,5 @@ export default {
 }
 #reset_btn {
       background: linear-gradient(45deg,#000,#777);
-
 }
 </style>
