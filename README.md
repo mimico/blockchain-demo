@@ -31,7 +31,7 @@ A mutation in the data field of a block rehashes the block without modifying the
 There is a button to revalidate the block. This button only revalidates a single block, not any of the subsequent blocks. Pressing the button for following blocks will revalidate them.
 
 There is field to enter a difficulty level for the blockchain when pressing the
-reset button. Functionality to be implemented in the future.
+reset button.
 
 
 # The Developers
