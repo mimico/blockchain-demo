@@ -24,7 +24,7 @@
         <b-col class="text-right">
           <div v-if="valid">{{ block.nonce }}</div>
           <div v-else>
-            <b-button class="remine" v-on:click="remine">⛏️</b-button>
+            <b-button class="remine" v-on:click="remine">⚒️</b-button>
           </div>
         </b-col>
       </b-row>
